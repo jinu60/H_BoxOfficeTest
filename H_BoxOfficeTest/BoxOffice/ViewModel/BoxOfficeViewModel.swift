@@ -55,9 +55,12 @@ class BoxOfficeViewModel {
         
         let weekTime = DateHelper.convertDateStringFormat(dateString: yearWeekTime, dateFormat: "yyyyMM", convertDateFormat: "MM주차")
         
-        let range = DateHelper.convertDateStringFormat(dateString: showRange, dateFormat: "yyyyMMdd~yyyyMMdd", convertDateFormat: "yyyy년 MM월 dd일 ~ yyyy년 MM월 dd일")
+        let range = showRange.split(separator: "~").map{ String($0) }
         
-        return weekTime + "(" + range + ")"
+        let startRange = DateHelper.convertDateStringFormat(dateString: range[0], dateFormat: "yyyyMMdd", convertDateFormat: "yyyy년MM월dd일")
+        let endRange = DateHelper.convertDateStringFormat(dateString: range[1], dateFormat: "yyyyMMdd", convertDateFormat: "yyyy년MM월dd일")
+        
+        return weekTime + "(" + startRange + "~" + endRange + ")"
     }
     
     func getWeeklyBoxOfficeList() -> [WeeklyBoxOfficeList] {
