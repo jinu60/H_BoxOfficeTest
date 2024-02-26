@@ -49,11 +49,11 @@ class BoxOfficeViewModel {
     }
     
     func getShowRange() -> String {
-        guard let showRange = boxOffice?.boxOfficeResult.showRange, let yearWeekTime = boxOffice?.boxOfficeResult.yearWeekTime else {
+        guard let showRange = boxOffice?.boxOfficeResult.showRange, let yearWeekTime = boxOffice?.boxOfficeResult.yearWeekTime, yearWeekTime.count >= 2 else {
             return ""
         }
         
-        let weekTime = DateHelper.convertDateStringFormat(dateString: yearWeekTime, dateFormat: "yyyyMM", convertDateFormat: "MM주차")
+        let weekTime = yearWeekTime.suffix(2) + "주차"
         
         let range = showRange.split(separator: "~").map{ String($0) }
         

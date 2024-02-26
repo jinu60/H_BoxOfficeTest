@@ -34,9 +34,7 @@ class BoxOfficeViewController: UIViewController {
         
         setUpTableView()
         
-        vLoadingIndicator.isHidden = false
-        vNodata.isHidden = true
-        viewModel.getData(targetDt: DateHelper.getDate(date: targetDt, dateFormat: "yyyyMMdd"), weekGb: weekGb)
+        loadData()
     }
     
     func initView() {
@@ -54,6 +52,13 @@ class BoxOfficeViewController: UIViewController {
         tvBoxOffice.dataSource = self
         
         tvBoxOffice.register(BoxOfficeCell.register(), forCellReuseIdentifier: BoxOfficeCell.identifier)
+    }
+    
+    func loadData() {
+        vLoadingIndicator.isHidden = false
+        vNodata.isHidden = true
+        
+        viewModel.getData(targetDt: DateHelper.getDate(date: targetDt, dateFormat: "yyyyMMdd"), weekGb: weekGb)
     }
     
     func openMovieViewController(movieCd: String) {
@@ -76,6 +81,8 @@ class BoxOfficeViewController: UIViewController {
         actionSheet.addAction(UIAlertAction(title: "선택", style: .destructive) { action in
             self.targetDt = datePicker.date
             self.btnTargetDt.setTitle(DateHelper.getDate(date: self.targetDt, dateFormat: "yyyy-MM-dd"), for: .normal)
+            
+            self.loadData()
         })
         
         let dateViewController = UIViewController()
@@ -92,16 +99,22 @@ class BoxOfficeViewController: UIViewController {
         actionSheet.addAction(UIAlertAction(title: "주간 (월~일)", style: weekGb == "0" ? .destructive : .default) { action in
             self.weekGb = "0"
             self.btnWeekGb.setTitle(action.title, for: .normal)
+            
+            self.loadData()
         })
         
         actionSheet.addAction(UIAlertAction(title: "주말 (금~일)", style: weekGb == "1" ? .destructive : .default) { action in
             self.weekGb = "1"
             self.btnWeekGb.setTitle(action.title, for: .normal)
+            
+            self.loadData()
         })
 
         actionSheet.addAction(UIAlertAction(title: "주중 (월~목)", style: weekGb == "2" ? .destructive : .default) { action in
             self.weekGb = "2"
             self.btnWeekGb.setTitle(action.title, for: .normal)
+            
+            self.loadData()
         })
         
         //취소 버튼 - 스타일(cancel)

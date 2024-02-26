@@ -8,6 +8,7 @@
 import Foundation
 
 extension String {
+    // String에 Comma찍기
     func comma() -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal

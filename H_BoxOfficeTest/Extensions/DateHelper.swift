@@ -18,6 +18,7 @@ enum Weekday: Int {
 }
 
 class DateHelper {
+    // 현재 날짜 가져오기
     static func getNowDate() -> String {
         let nowDate = Date()
         let dateFormatter = DateFormatter()
@@ -25,12 +26,14 @@ class DateHelper {
         return dateFormatter.string(from: nowDate)
     }
     
+    // 날짜 원하는 포맷으로 가져오기
     static func getDate(date: Date, dateFormat: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = dateFormat
         return dateFormatter.string(from: date)
     }
     
+    // 해당 포맷으로 변환해서 가져오기
     static func convertDateStringFormat(dateString: String, dateFormat: String, convertDateFormat: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = dateFormat
@@ -44,6 +47,7 @@ class DateHelper {
         }
     }
     
+    // 지난 주말 날짜 가져오기
     static func getLastWeekDate() -> Date {
         let currentDate = Date()
         let calendar = Calendar.autoupdatingCurrent
